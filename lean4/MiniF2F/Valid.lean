@@ -56,18 +56,18 @@ theorem aime_1984_p5
 begin
   sorry
 end
+-/
 
 theorem mathd_numbertheory_780
-  (m x : ℕ)
-  (h₀ : 10 ≤ m)
-  (h₁ : m ≤ 99)
-  (h₂ : (6 * x) % m = 1)
-  (h₃ : (x - 6^2) % m = 0) :
-  m = 43 :=
-begin
+    (m x : ℕ)
+    (h₀ : 10 ≤ m)
+    (h₁ : m ≤ 99)
+    (h₂ : (6 * x) % m = 1)
+    (h₃ : (x - 6^2) % m = 0) :
+    m = 43 := by
   sorry
-end
 
+/-
 theorem mathd_algebra_116
   (k x: ℝ)
   (h₀ : x = (13 - real.sqrt 131) / 4)
@@ -85,6 +85,7 @@ begin
   linarith,
 end
 
+
 theorem mathd_numbertheory_13
   (u v : ℕ)
   (S : set ℕ)
@@ -95,13 +96,13 @@ theorem mathd_numbertheory_13
 begin
   sorry
 end
+-/
 
 theorem mathd_numbertheory_169 :
-  nat.gcd 20! 200000 = 40000 :=
-begin
+    Nat.gcd (Nat.factorial 20) 200000 = 40000 := by
   sorry
-end
 
+/-
 theorem amc12a_2009_p9
   (a b c : ℝ)
   (f : ℝ → ℝ)
@@ -111,17 +112,16 @@ theorem amc12a_2009_p9
 begin
   sorry
 end
+-/
 
 theorem amc12a_2019_p9
   (a : ℕ → ℚ)
   (h₀ : a 1 = 1)
   (h₁ : a 2 = 3 / 7)
   (h₂ : ∀ n, a (n + 2) = (a n * a (n + 1)) / (2 * a n - a (n + 1))) :
-  ↑(a 2019).denom + (a 2019).num = 8078 :=
-begin
-  sorry
-end
+  ↑(a 2019).den + (a 2019).num = 8078 := sorry
 
+/-
 theorem mathd_algebra_13
   (a b : ℝ)
   (h₀ : ∀ x, (x - 3 ≠ 0 ∧ x - 5 ≠ 0) → 4 * x / (x^2 - 8 * x + 15) = a / (x - 3) + b / (x - 5)) :
@@ -150,19 +150,19 @@ theorem mathd_numbertheory_149 :
 begin
   sorry
 end
+-/
 
 theorem imo_1984_p2
-  (a b : ℕ)
-  (h₀ : 0 < a ∧ 0 < b)
-  (h₁ : ¬ 7 ∣ a)
-  (h₂ : ¬ 7 ∣ b)
-  (h₃ : ¬ 7 ∣ (a + b))
-  (h₄ : (7^7) ∣ ((a + b)^7 - a^7 - b^7)) :
-  19 ≤ a + b :=
-begin
+    (a b : ℕ)
+    (h₀ : 0 < a ∧ 0 < b)
+    (h₁ : ¬ 7 ∣ a)
+    (h₂ : ¬ 7 ∣ b)
+    (h₃ : ¬ 7 ∣ (a + b))
+    (h₄ : (7^7) ∣ ((a + b)^7 - a^7 - b^7)) :
+    19 ≤ a + b := by
   sorry
-end
 
+/-
 theorem amc12a_2008_p4 :
   ∏ k in finset.Icc (1 : ℕ) 501, ((4 : ℝ) * k + 4) / (4 * k) = 502 :=
 begin
