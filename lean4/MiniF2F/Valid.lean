@@ -26,7 +26,7 @@ theorem amc12a_2015_p10
     (x y : ℤ)
     (h₀ : 0 < y)
     (h₁ : y < x)
-    (h₂ : x + y + (x * y) = 80) :
+    (h₂ : x + y + x * y = 80) :
     x = 26 := by
   sorry
 
@@ -175,19 +175,19 @@ theorem imo_2006_p6
 begin
   sorry
 end
+-/
 
 theorem mathd_algebra_462 :
-  ((1 : ℚ)/ 2 + 1 / 3) * (1 / 2 - 1 / 3) = 5 / 36 :=
-begin
-  norm_num,
-end
+  ((1 : ℚ)/ 2 + 1 / 3) * (1 / 2 - 1 / 3) = 5 / 36 := sorry --by norm_num
 
 theorem imo_1964_p1_2
-  (n : ℕ) :
-  ¬ 7 ∣ (2^n + 1) :=
-begin
+    (n : ℕ) :
+    ¬ 7 ∣ (2^n + 1) := by
+  intro h
+  obtain ⟨k, hk⟩ := h
   sorry
-end
+
+/-
 
 theorem mathd_numbertheory_221
   (S : finset ℕ)
@@ -202,22 +202,21 @@ theorem mathd_numbertheory_64 :
 begin
   sorry
 end
+-/
 
 theorem imo_1987_p4
-  (f : ℕ → ℕ) :
-  ∃ n, f (f n) ≠ n + 1987 :=
-begin
+    (f : ℕ → ℕ) :
+    ∃ n, f (f n) ≠ n + 1987 := by
   sorry
-end
 
 theorem mathd_numbertheory_33
-  (n : ℕ)
-  (h₀ : n < 398)
-  (h₁ : (n * 7) % 398 = 1) :
-  n = 57 :=
-begin
+    (n : ℕ)
+    (h₀ : n < 398)
+    (h₁ : (n * 7) % 398 = 1) :
+    n = 57 := by
   sorry
-end
+
+/-
 
 theorem amc12_2001_p9
   (f : ℝ → ℝ)
@@ -243,23 +242,25 @@ theorem imo_1965_p1
 begin
   sorry
 end
+-/
 
 theorem mathd_numbertheory_48
-  (b : ℕ)
-  (h₀ : 0 < b)
-  (h₁ : 3 * b^2 + 2 * b + 1 = 57) :
-  b = 4 :=
-begin
-  nlinarith,
-end
+    (b : ℕ)
+    (h₀ : 0 < b)
+    (h₁ : 3 * b^2 + 2 * b + 1 = 57) :
+    b = 4 := by
+  have h₂ : 3 * b^2 + 2 * b = 56 := Nat.succ.inj h₁
+  have h₃ : 3 * b^2 + 2 * b = b * (3 * b + 2) := by ring
+  rw[h₃] at h₂
+  clear h₃
+  sorry
 
 theorem numbertheory_sqmod4in01d
-  (a : ℤ) :
-  (a^2 % 4) = 0 ∨ (a^2 % 4) = 1 :=
-begin
+    (a : ℤ) :
+    (a^2 % 4) = 0 ∨ (a^2 % 4) = 1 := by
   sorry
-end
 
+/-
 theorem mathd_numbertheory_466 :
   (∑ k in (finset.range 11), k) % 9 = 1 :=
 begin
@@ -283,13 +284,12 @@ theorem amc12_2000_p15
 begin
   sorry
 end
+-/
 
 theorem mathd_numbertheory_132 :
-  2004 % 12 = 0 :=
-begin
-  norm_num,
-end
+  2004 % 12 = 0 := by norm_num
 
+/-
 theorem amc12a_2009_p5
   (x : ℝ)
   (h₀ : x^3 - (x + 1) * (x - 1) * x = 5) :
@@ -297,13 +297,12 @@ theorem amc12a_2009_p5
 begin
   sorry
 end
+-/
 
 theorem mathd_numbertheory_188 :
-  nat.gcd 180 168 = 12 :=
-begin
-  norm_num,
-end
+  Nat.gcd 180 168 = 12 := sorry --by norm_num
 
+/-
 theorem mathd_algebra_224
   (S : finset ℕ)
   (h₀ : ∀ (n : ℕ), n ∈ S ↔ real.sqrt n < 7 / 2 ∧ 2 < real.sqrt n) :
@@ -311,14 +310,14 @@ theorem mathd_algebra_224
 begin
   sorry
 end
+-/
 
 theorem induction_divisibility_3divnto3m2n
-  (n : ℕ) :
-  3 ∣ n^3 + 2 * n :=
-begin
+    (n : ℕ) :
+    3 ∣ n^3 + 2 * n := by
   sorry
-end
 
+/-
 theorem induction_sum_1oktkp1
   (n : ℕ) :
   ∑ k in (finset.range n), (1 : ℝ) / ((k + 1) * (k + 2)) = n / (n + 1) :=
