@@ -28,6 +28,12 @@ theorem amc12a_2015_p10
     (h₁ : y < x)
     (h₂ : x + y + x * y = 80) :
     x = 26 := by
+  replace h₂ : x + y + x * y + 1 = 81 := of_eq (congrFun (congrArg HAdd.hAdd h₂) 1)
+  have h₄ : x + y + x * y + 1 = (x + 1) * (y + 1) := by ring
+  have h₅ : (81: ℤ) = 3 ^ 4 := by norm_num
+  rw[h₄, h₅] at h₂
+  clear h₄ h₅
+  -- factors of 81: 1,3,9,27,81
   sorry
 
 /-
@@ -59,13 +65,22 @@ end
 -/
 
 theorem mathd_numbertheory_780
-    (m x : ℕ)
+    (m x : ℤ)
     (h₀ : 10 ≤ m)
     (h₁ : m ≤ 99)
     (h₂ : (6 * x) % m = 1)
     (h₃ : (x - 6^2) % m = 0) :
     m = 43 := by
+  rw [Int.emod_def] at h₂ h₃
+  have h₄ :
+   6 * (x - 6 ^ 2 - m * ((x - 6 ^ 2) / m)) = 6 * 0 :=
+     namedPattern (congrArg (HMul.hMul 6) h₃) (congrArg (HMul.hMul 6) h₃) rfl
+  have h₅ := congr_arg₂ HSub.hSub h₂ h₄
+  ring_nf at h₅
+  have : 215 = m * ((x * 6 / m) - ((-36 + x) / m) * 6) := by linarith
   sorry
+  -- 215 factors as 5 * 43, and the only one of those in the desired range is 43.
+
 
 /-
 theorem mathd_algebra_116
@@ -811,26 +826,22 @@ begin
   rw h₆ at h₂,
   linarith,
 end
+-/
 
-theorem mathd_numbertheory_102 :
-  (2^8) % 5 = 1 :=
-begin
-  norm_num,
-end
+theorem mathd_numbertheory_102 : (2^8) % 5 = 1 := by norm_num
 
+/-
 theorem amc12a_2010_p22
   (x : ℝ) :
   49 ≤ ∑ k in finset.Icc 1 119, abs (↑k * x - 1) :=
 begin
   sorry
 end
+-/
 
-theorem mathd_numbertheory_81 :
-  71 % 3 = 2 :=
-begin
-  norm_num,
-end
+theorem mathd_numbertheory_81 : 71 % 3 = 2 := by norm_num
 
+/-
 theorem mathd_numbertheory_155 :
   finset.card (finset.filter (λ x, x % 19 = 7) (finset.Icc 100 999)) = 52 :=
 begin
