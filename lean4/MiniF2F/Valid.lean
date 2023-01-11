@@ -315,7 +315,18 @@ end
 theorem induction_divisibility_3divnto3m2n
     (n : ℕ) :
     3 ∣ n^3 + 2 * n := by
-  sorry
+  induction n with
+  | zero  => norm_num
+  | succ n ih =>
+    have hsucc : n.succ = n + 1 := rfl
+    have h₁ : (n + 1) ^ 3 + 2 * (n + 1) =
+      (n^3 + 2 * n) + (3 * n^2 + n + 1) + (2 * n + 2) := by ring
+    obtain ⟨k, hk⟩ := ih
+    rw [hsucc, h₁, hk]
+    have h₂ : 3 * k + (3 * n ^ 2 + n + 1) + (2 * n + 2) =
+               3 * (k +  n ^ 2 +  n + 1) := by ring
+    rw [h₂]
+    exact ⟨k +  n ^ 2 +  n + 1, rfl⟩
 
 /-
 theorem induction_sum_1oktkp1
