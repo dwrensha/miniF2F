@@ -359,18 +359,18 @@ begin
   norm_num at this,
   linarith,
 end
+-/
 
 theorem amc12b_2002_p11
-  (a b : ℕ)
-  (h₀ : nat.prime a)
-  (h₁ : nat.prime b)
-  (h₂ : nat.prime (a + b))
-  (h₃ : nat.prime (a - b)) :
-  nat.prime (a + b + (a - b + (a + b))) :=
-begin
+    (a b : ℕ)
+    (h₀ : Nat.Prime a)
+    (h₁ : Nat.Prime b)
+    (h₂ : Nat.Prime (a + b))
+    (h₃ : Nat.Prime (a - b)) :
+    Nat.Prime (a + b + (a - b + (a + b))) := by
   sorry
-end
 
+/-
 theorem mathd_algebra_73
   (p q r x : ℂ)
   (h₀ : (x - p) * (x - q) = (r - p) * (r - q))
@@ -393,15 +393,18 @@ begin
   rw h₁,
   norm_num [finset.sum_Ico_succ_top],
 end
+-/
 
 theorem algebra_xmysqpymzsqpzmxsqeqxyz_xpypzp6dvdx3y3z3
-  (x y z : ℤ)
-  (h₀ : (x - y)^2 + (y - z)^2 + (z - x)^2 = x * y * z) :
-  (x + y + z + 6) ∣ (x^3 + y^3 + z^3) :=
-begin
+    (x y z : ℤ)
+    (h₀ : (x - y)^2 + (y - z)^2 + (z - x)^2 = x * y * z) :
+    (x + y + z + 6) ∣ (x^3 + y^3 + z^3) := by
   sorry
-end
 
+-- (x + y + z + 6) * (x^2 + y^2 + z^2)
+-- = x^3 + y ^3 + z^3 + xy^2 + x^2 y + x z^2 + x^2 z + yz^2 + y^2 z + 6 * (x^2 + y^2 + z^2)
+
+/-
 theorem imo_1962_p4
   (S : set ℝ)
   (h₀ : S = {x : ℝ | (real.cos x)^2 + (real.cos (2 * x))^2 + (real.cos (3 * x))^2 = 1}) :
@@ -409,13 +412,12 @@ theorem imo_1962_p4
 begin
   sorry
 end
+-/
 
 theorem mathd_numbertheory_236 :
-  (1999^2000) % 5 = 1 :=
-begin
-  sorry
-end
+  (1999^2000) % 5 = 1 := by norm_num
 
+/-
 theorem mathd_numbertheory_24 :
   (∑ k in (finset.Icc 1 9), 11^k) % 100 = 59 :=
 begin
@@ -476,13 +478,12 @@ theorem mathd_algebra_547
 begin
   sorry
 end
+-/
 
 theorem mathd_numbertheory_200 :
-  139 % 11 = 7 :=
-begin
-  norm_num,
-end
+  139 % 11 = 7 := by norm_num
 
+/-
 theorem mathd_algebra_510
   (x y : ℝ)
   (h₀ : x + y = 13)
@@ -511,14 +512,15 @@ theorem mathd_algebra_455
 begin
   linarith,
 end
+-/
 
 theorem mathd_numbertheory_45 :
-  (nat.gcd 6432 132) + 11 = 23 :=
-begin
-  simp only [nat.gcd_comm],
-  norm_num,
-end
+    (Nat.gcd 6432 132) + 11 = 23 := by
+  simp only [Nat.gcd_comm]
+  norm_num -- doesn't handle GCD yet?
+  sorry
 
+/-
 theorem aime_1994_p4
   (n : ℕ)
   (h₀ : 0 < n)
@@ -527,13 +529,13 @@ theorem aime_1994_p4
 begin
   sorry
 end
+-/
 
+open Nat in
 theorem mathd_numbertheory_739 :
-  9! % 10 = 0 :=
-begin
-  norm_num,
-end
+  9! % 10 = 0 := by norm_num
 
+/-
 theorem mathd_algebra_245
   (x : ℝ)
   (h₀ : x ≠ 0) :
@@ -575,16 +577,16 @@ theorem mathd_algebra_480
 begin
   sorry
 end
+-/
 
 theorem mathd_algebra_69
-  (rows seats : ℕ)
-  (h₀ : rows * seats = 450)
-  (h₁ : (rows + 5) * (seats - 3) = 450) :
-  rows = 25 :=
-begin
+    (rows seats : ℕ)
+    (h₀ : rows * seats = 450)
+    (h₁ : (rows + 5) * (seats - 3) = 450) :
+    rows = 25 := by
   sorry
-end
 
+/-
 theorem mathd_algebra_433
   (f : ℝ → ℝ)
   (h₀ : ∀ x, f x = 3 * real.sqrt (2 * x - 7) - 8) :
@@ -601,17 +603,27 @@ theorem mathd_algebra_126
 begin
   split; linarith,
 end
+-/
 
 theorem aimeII_2020_p6
-  (t : ℕ → ℚ)
-  (h₀ : t 1 = 20)
-  (h₁ : t 2 = 21)
-  (h₂ : ∀ n ≥ 3, t n = (5 * t (n - 1) + 1) / (25 * t (n - 2))) :
-  ↑(t 2020).denom + (t 2020).num = 626 :=
-begin
+    (t : ℕ → ℚ)
+    (h₀ : t 1 = 20)
+    (h₁ : t 2 = 21)
+    (h₂ : ∀ n ≥ 3, t n = (5 * t (n - 1) + 1) / (25 * t (n - 2))) :
+    ↑(t 2020).den + (t 2020).num = 626 := by
+  let s : ℕ → ℚ | n => 5 * t n
+  have hs₂ : ∀ n ≥ 3, s n = (s (n - 1) + 1) / (s (n - 2)) := by
+    intro n
+    cases n with | zero => (intro hz; norm_num at hz) | succ n =>
+    cases n with | zero => (intro hz; norm_num at hz) | succ n =>
+    cases n with | zero => (intro hz; norm_num at hz) | succ n =>
+    intro _
+    induction n with
+    | zero => sorry
+    | succ n ih => sorry
   sorry
-end
 
+/-
 theorem amc12a_2008_p2
   (x : ℝ)
   (h₀ : x * (1 / 2 + 2 / 3) = 1) :
@@ -692,15 +704,16 @@ begin
   exact real.rpow_pos_of_pos (by norm_num) _,
   apply nnreal.add_halves,
 end
+-/
 
 theorem mathd_numbertheory_335
-  (n : ℕ)
-  (h₀ : n % 7 = 5) :
-  (5 * n) % 7 = 4 :=
-begin
-  sorry
-end
+    (n : ℕ)
+    (h₀ : n % 7 = 5) :
+    (5 * n) % 7 = 4 := by
+  rw [Nat.mul_mod, h₀]
+  norm_num
 
+/-
 theorem mathd_numbertheory_35
   (S : finset ℕ)
   (h₀ : ∀ (n : ℕ), n ∣ (nat.sqrt 196)) :
