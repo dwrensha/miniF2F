@@ -99,35 +99,28 @@ begin
   ring,
   linarith,
 end
-
+-/
 
 theorem mathd_numbertheory_13
-  (u v : ℕ)
-  (S : set ℕ)
-  (h₀ : ∀ (n : ℕ), n ∈ S ↔ 0 < n ∧ (14 * n) % 100 = 46)
-  (h₁ : is_least S u)
-  (h₂ : is_least (S \ {u}) v) :
-  ((u + v) : ℚ) / 2 = 64 :=
-begin
+    (u v : ℕ)
+    (S : Set ℕ)
+    (h₀ : ∀ (n : ℕ), n ∈ S ↔ 0 < n ∧ (14 * n) % 100 = 46)
+    (h₁ : IsLeast S u)
+    (h₂ : IsLeast (S \ {u}) v) :
+    ((u + v) : ℚ) / 2 = 64 := by
   sorry
-end
--/
 
 theorem mathd_numbertheory_169 :
     Nat.gcd (Nat.factorial 20) 200000 = 40000 := by
   sorry
 
-/-
 theorem amc12a_2009_p9
-  (a b c : ℝ)
-  (f : ℝ → ℝ)
-  (h₀ : ∀ x, f (x + 3) = 3 * x^2 + 7 * x + 4)
-  (h₁ : ∀ x, f x = a * x^2 + b * x + c) :
-  a + b + c = 2 :=
-begin
+    (a b c : ℝ)
+    (f : ℝ → ℝ)
+    (h₀ : ∀ x, f (x + 3) = 3 * x^2 + 7 * x + 4)
+    (h₁ : ∀ x, f x = a * x^2 + b * x + c) :
+    a + b + c = 2 := by
   sorry
-end
--/
 
 theorem amc12a_2019_p9
   (a : ℕ → ℚ)
@@ -136,15 +129,13 @@ theorem amc12a_2019_p9
   (h₂ : ∀ n, a (n + 2) = (a n * a (n + 1)) / (2 * a n - a (n + 1))) :
   ↑(a 2019).den + (a 2019).num = 8078 := sorry
 
-/-
 theorem mathd_algebra_13
-  (a b : ℝ)
-  (h₀ : ∀ x, (x - 3 ≠ 0 ∧ x - 5 ≠ 0) → 4 * x / (x^2 - 8 * x + 15) = a / (x - 3) + b / (x - 5)) :
-  a = -6 ∧ b = 10 :=
-begin
+    (a b : ℝ)
+    (h₀ : ∀ x, (x - 3 ≠ 0 ∧ x - 5 ≠ 0) → 4 * x / (x^2 - 8 * x + 15) = a / (x - 3) + b / (x - 5)) :
+    a = -6 ∧ b = 10 := by
   sorry
-end
 
+/-
 theorem induction_sum2kp1npqsqm1
   (n : ℕ) :
   ↑∑ k in (finset.range n), 2 * k + 3 = ↑(n + 1)^2 - (1:ℤ) :=
@@ -193,7 +184,7 @@ end
 -/
 
 theorem mathd_algebra_462 :
-  ((1 : ℚ)/ 2 + 1 / 3) * (1 / 2 - 1 / 3) = 5 / 36 := sorry --by norm_num
+  ((1 : ℚ)/ 2 + 1 / 3) * (1 / 2 - 1 / 3) = 5 / 36 := by norm_num
 
 theorem imo_1964_p1_2
     (n : ℕ) :
@@ -231,21 +222,20 @@ theorem mathd_numbertheory_33
     n = 57 := by
   sorry
 
-/-
-
 theorem amc12_2001_p9
-  (f : ℝ → ℝ)
-  (h₀ : ∀ x > 0, ∀ y > 0, f (x * y) = f x / y)
-  (h₁ : f 500 = 3) : f 600 = 5 / 2 :=
-begin
-  specialize h₀ 500 _ (6/5) _,
-  { linarith },
-  { linarith },
-  calc f 600 = f (500 * (6/5)) : by {congr, norm_num}
-        ... = f 500 / (6 / 5) : by {rw h₀}
-        ... = 3 / (6 / 5) : by { rw h₁ }
-        ... = 5 / 2 : by {norm_num},
-end
+    (f : ℝ → ℝ)
+    (h₀ : ∀ x > 0, ∀ y > 0, f (x * y) = f x / y)
+    (h₁ : f 500 = 3) : f 600 = 5 / 2 := by
+  sorry
+--  specialize h₀ 500 _ (6/5) _
+--  ⬝ linarith
+--  ⬝ linarith
+--  calc f 600 = f (500 * (6/5)) : by {congr, norm_num}
+--        ... = f 500 / (6 / 5) : by {rw h₀}
+--        ... = 3 / (6 / 5) : by { rw h₁ }
+--        ... = 5 / 2 : by {norm_num},
+
+/-
 
 theorem imo_1965_p1
   (x : ℝ)
@@ -858,28 +848,26 @@ theorem imo_1978_p5
 begin
   sorry
 end
+-/
 
 theorem amc12a_2017_p7
-  (f : ℕ → ℝ)
-  (h₀ : f 1 = 2)
-  (h₁ : ∀ n, 1 < n ∧ even n → f n = f (n - 1) + 1)
-  (h₂ : ∀ n, 1 < n ∧ odd n → f n = f (n - 2) + 2) :
-  f 2017 = 2018 :=
-begin
+    (f : ℕ → ℝ)
+    (h₀ : f 1 = 2)
+    (h₁ : ∀ n, 1 < n ∧ Even n → f n = f (n - 1) + 1)
+    (h₂ : ∀ n, 1 < n ∧ Odd n → f n = f (n - 2) + 2) :
+    f 2017 = 2018 := by
   sorry
-end
 
 theorem mathd_numbertheory_42
-  (S : set ℕ)
-  (u v : ℕ)
-  (h₀ : ∀ (a : ℕ), a ∈ S ↔ 0 < a ∧ 27 * a % 40 = 17)
-  (h₁ : is_least S u)
-  (h₂ : is_least (S \ {u}) v) :
-  u + v = 62 :=
-begin
+    (S : Set ℕ)
+    (u v : ℕ)
+    (h₀ : ∀ (a : ℕ), a ∈ S ↔ 0 < a ∧ 27 * a % 40 = 17)
+    (h₁ : IsLeast S u)
+    (h₂ : IsLeast (S \ {u}) v) :
+    u + v = 62 := by
   sorry
-end
 
+/-
 theorem mathd_algebra_110
   (q e : ℂ)
   (h₀ : q = 2 - 2 * complex.I)
@@ -899,15 +887,15 @@ theorem amc12b_2021_p21
 begin
   sorry
 end
+-/
 
 theorem mathd_algebra_405
-  (S : finset ℕ)
-  (h₀ : ∀ x, x ∈ S ↔ 0 < x ∧ x^2 + 4 * x + 4 < 20) :
-  S.card = 2 :=
-begin
+    (S : Finset ℕ)
+    (h₀ : ∀ x, x ∈ S ↔ 0 < x ∧ x^2 + 4 * x + 4 < 20) :
+    S.card = 2 := by
   sorry
-end
 
+/-
 theorem numbertheory_sumkmulnckeqnmul2pownm1
   (n : ℕ)
   (h₀ : 0 < n) :
@@ -915,23 +903,21 @@ theorem numbertheory_sumkmulnckeqnmul2pownm1
 begin
   sorry
 end
+-/
 
 theorem mathd_algebra_393
-  (σ : equiv ℝ ℝ)
-  (h₀ : ∀ x, σ.1 x = 4 * x^3 + 1) :
-  σ.2 33 = 2 :=
-begin
+    (σ : Equiv ℝ ℝ)
+    (h₀ : ∀ x, σ.1 x = 4 * x^3 + 1) :
+    σ.2 33 = 2 := by
   sorry
-end
 
 theorem amc12b_2004_p3
-  (x y : ℕ)
-  (h₀ : 2^x * 3^y = 1296) :
-  x + y = 8 :=
-begin
+    (x y : ℕ)
+    (h₀ : 2^x * 3^y = 1296) :
+    x + y = 8 := by
   sorry
-end
 
+/-
 theorem mathd_numbertheory_303
   (S : finset ℕ)
   (h₀ : ∀ (n : ℕ), n ∈ S ↔ 2 ≤ n ∧ 171 ≡ 80 [MOD n] ∧ 468 ≡ 13 [MOD n]) :
@@ -945,15 +931,15 @@ theorem mathd_algebra_151 :
 begin
   sorry
 end
+-/
 
 theorem amc12a_2011_p18
-  (x y : ℝ)
-  (h₀ : abs (x + y) + abs (x - y) = 2) :
-  x^2 - 6 * x + y^2 ≤ 9 :=
-begin
+    (x y : ℝ)
+    (h₀ : abs (x + y) + abs (x - y) = 2) :
+    x^2 - 6 * x + y^2 ≤ 9 := by
   sorry
-end
 
+/-
 theorem mathd_algebra_15
   (s : ℕ → ℕ → ℕ)
   (h₀ : ∀ a b, 0 < a ∧ 0 < b → s a b = a^(b:ℕ) + b^(a:ℕ)) :
