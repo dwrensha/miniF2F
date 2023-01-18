@@ -1367,13 +1367,12 @@ begin
   rw [pow_two, pow_two, complex.I_mul_I],
   ring,
 end
+-/
 
 theorem mathd_numbertheory_198 :
-  (5^2005) % 100 = 25 :=
-begin
-  sorry
-end
+  (5^2005) % 100 = 25 := by norm_num
 
+/-
 theorem mathd_algebra_149
   (f : ℝ → ℝ)
   (h₀ : ∀ x < -5, f x = x^2 + 5)
@@ -1397,20 +1396,22 @@ begin
   field_simp [h₁],
   linarith,
 end
+-/
 
-theorem mathd_numbertheory_37 :
-  nat.lcm 9999 100001 = 90900909 :=
-begin
- let e : empty → fin 1 → ℕ := λ _, 1,
-  have : fintype.card (fin 1) = 1 := fintype.card_fin 1,
-  unfold nat.lcm,
+theorem mathd_numbertheory_37 : Nat.lcm 9999 100001 = 90900909 := by
+  let e : Empty → Fin 1 → ℕ := λ _ ↦ 1
+  sorry
+/-
+  have : Fintype.card (Fin 1) = 1 := Fintype.card_fin 1,
+  unfold nat.lcm
   have : fintype.card (fin 1) = 1 := fintype.card_fin 1,
   simp only [eq_comm] at this,
   rw this,
   simp [bit1],
-  norm_num,
-end
+  norm_num,-/
 
+
+/-
 theorem aime_1983_p9
   (x : ℝ)
   (h₀ : 0 < x ∧ x < real.pi) :
@@ -1434,15 +1435,21 @@ theorem mathd_algebra_37
 begin
   nlinarith,
 end
+-/
 
 theorem mathd_numbertheory_458
-  (n : ℕ)
-  (h₀ : n % 8 = 7) :
-  n % 4 = 3 :=
-begin
-  sorry
-end
+    (n : ℕ)
+    (h₀ : n % 8 = 7) :
+    n % 4 = 3 := by
+  have h1 := Nat.mod_add_div n 8
+  rw[h₀] at h1
+  rw[← h1]
+  rw[Nat.add_mod]
+  have h2 : 8 * (n / 8) = 4 * (2 * (n / 8)) := by norm_num
+  rw[h2, Nat.mul_mod_right]
+  norm_num
 
+/-
 theorem amc12a_2008_p15
   (k : ℕ)
   (h₀ : k = 2008^2 + 2^2008) :
@@ -2416,12 +2423,7 @@ theorem mathd_algebra_51
 begin
   linarith,
 end
-
-theorem mathd_algebra_10 :
-  abs ((120 : ℝ)/100 * 30 - 130/100 * 20) = 10 :=
-begin
-  norm_num,
-end
 -/
 
-
+theorem mathd_algebra_10 :
+  abs ((120 : ℝ)/100 * 30 - 130/100 * 20) = 10 := sorry --by norm_num
