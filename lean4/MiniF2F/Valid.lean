@@ -134,14 +134,22 @@ theorem mathd_algebra_13
     a = -6 ∧ b = 10 := by
   sorry
 
-/-
 theorem induction_sum2kp1npqsqm1
-  (n : ℕ) :
-  ↑∑ k in (finset.range n), 2 * k + 3 = ↑(n + 1)^2 - (1:ℤ) :=
-begin
-  sorry
-end
+    (n : ℕ) :
+    ↑(∑ k in (Finset.range n), 2 * k + 3) = ((n:ℤ) + 1)^2 - (1:ℤ) := by
+  induction n with
+  | zero => simp only
+  | succ n ih =>
+    rw[Finset.sum_range_succ]
+    have : ((((Finset.sum (Finset.range n) fun x => 2 * x + 3) + (2 * n + 3)):ℕ):ℤ)
+      = (((Finset.sum (Finset.range n) fun x => 2 * x + 3):ℕ):ℤ) + (((2 * n + 3):ℕ):ℤ)
+       := rfl
+    rw[this, ih]
+    have : Nat.succ n = n + 1 := rfl
+    zify
+    ring_nf
 
+/-
 theorem aime_1991_p6
   (r : ℝ)
   (h₀ : ∑ k in finset.Icc (19 : ℕ) 91, (int.floor (r + k / 100)) = 546) :
@@ -2399,13 +2407,12 @@ theorem algebra_amgm_sumasqdivbsqgeqsumbdiva
 begin
   sorry
 end
+-/
 
 theorem mathd_numbertheory_202 :
-  (19^19 + 99^99) % 10 = 8 :=
-begin
-  sorry
-end
+  (19^19 + 99^99) % 10 = 8 := by norm_num
 
+/-
 theorem imo_1979_p1
   (p q : ℕ)
   (h₀ : 0 < q)
