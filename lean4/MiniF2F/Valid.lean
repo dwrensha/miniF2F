@@ -73,8 +73,7 @@ theorem mathd_numbertheory_780
     m = 43 := by
   rw [Int.emod_def] at h₂ h₃
   have h₄ :
-   6 * (x - 6 ^ 2 - m * ((x - 6 ^ 2) / m)) = 6 * 0 :=
-     namedPattern (congrArg (HMul.hMul 6) h₃) (congrArg (HMul.hMul 6) h₃) rfl
+   6 * (x - 6 ^ 2 - m * ((x - 6 ^ 2) / m)) = 6 * 0 := (congrArg (HMul.hMul 6) h₃)
   have h₅ := congr_arg₂ HSub.hSub h₂ h₄
   ring_nf at h₅
   have : 215 = m * ((x * 6 / m) - ((-36 + x) / m) * 6) := by linarith
@@ -226,17 +225,15 @@ theorem amc12_2001_p9
     (f : ℝ → ℝ)
     (h₀ : ∀ x > 0, ∀ y > 0, f (x * y) = f x / y)
     (h₁ : f 500 = 3) : f 600 = 5 / 2 := by
-  sorry
---  specialize h₀ 500 _ (6/5) _
---  ⬝ linarith
---  ⬝ linarith
---  calc f 600 = f (500 * (6/5)) : by {congr, norm_num}
---        ... = f 500 / (6 / 5) : by {rw h₀}
---        ... = 3 / (6 / 5) : by { rw h₁ }
---        ... = 5 / 2 : by {norm_num},
+  specialize h₀ 500 _ (6/5) _
+  · sorry --linarith
+  · sorry --linarith
+  · calc f 600 = f (500 * (6/5)) := by congr; norm_num
+             _ = f 500 / (6 / 5) := by rw [h₀]
+             _ = 3 / (6 / 5) := by rw [h₁]
+             _ = 5 / 2 := by norm_num
 
 /-
-
 theorem imo_1965_p1
   (x : ℝ)
   (h₀ : 0 ≤ x)
@@ -294,15 +291,14 @@ end
 theorem mathd_numbertheory_132 :
   2004 % 12 = 0 := by norm_num
 
-/-
 theorem amc12a_2009_p5
-  (x : ℝ)
-  (h₀ : x^3 - (x + 1) * (x - 1) * x = 5) :
-  x^3 = 125 :=
-begin
-  sorry
-end
--/
+    (x : ℝ)
+    (h₀ : x^3 - (x + 1) * (x - 1) * x = 5) :
+    x^3 = 125 := by
+  ring_nf at h₀
+  have : x = 5 := by linarith -- ring_nf ought to make this unnecessary.
+  rw[this]
+  norm_num
 
 theorem mathd_numbertheory_188 :
   Nat.gcd 180 168 = 12 := sorry --by norm_num
@@ -348,23 +344,23 @@ theorem mathd_numbertheory_32
 begin
   sorry
 end
+-/
 
 theorem mathd_algebra_422
-  (x : ℝ)
-  (σ : equiv ℝ ℝ)
-  (h₀ : ∀ x, σ.1 x = 5 * x - 12)
-  (h₁ : σ.1 (x + 1) = σ.2 x) :
-  x = 47 / 24 :=
-begin
-  field_simp [h₀, mul_add, add_mul, sub_add_cancel, mul_assoc, add_comm],
+    (x : ℝ)
+    (σ : Equiv ℝ ℝ)
+    (h₀ : ∀ x, σ.1 x = 5 * x - 12)
+    (h₁ : σ.1 (x + 1) = σ.2 x) :
+    x = 47 / 24 := by
+  sorry
+/-  field_simp [h₀, mul_add, add_mul, sub_add_cancel, mul_assoc, add_comm],
   have := congr_arg σ.to_fun h₁,
   rw h₀ at this,
   rw h₀ at this,
   symmetry,
   norm_num at this,
-  linarith,
-end
--/
+  linarith,-/
+
 
 theorem amc12b_2002_p11
     (a b : ℕ)
@@ -442,15 +438,33 @@ theorem algebra_amgm_prod1toneq1_sum1tongeqn
 begin
   sorry
 end
+-/
+
+--theorem foo (x : ℚ) : x^2 = -x := by ring
+
+--theorem bar (y z : ℚ) (hy : 0 < y) (hz : 0 < z) (hyz : y > z) : y^2 > z^2 :=
+--by sorry
 
 theorem mathd_algebra_101
-  (x : ℝ)
-  (h₀ : x^2 - 5 * x - 4 ≤ 10) :
-  x ≥ -2 ∧ x ≤ 7 :=
-begin
-  split; nlinarith,
-end
+    (x : ℝ)
+    (h₀ : x^2 - 5 * x - 4 ≤ 10) :
+    x ≥ -2 ∧ x ≤ 7 :=
+by constructor
+   · by_contra h₁
+     replace h₁ := lt_of_not_le h₁
+     --have h2 : (-5) * x > 10 := by linarith
+     --have h3 : x^2 = (-x)^2 := by ring
+     --rw [h3] at h₀
+     --have : -x > 2 := by linarith
+     -- (linarith does not work on ℝ yet)
+     sorry
+   · by_contra h₁
+     -- x > 7
+     -- x ^ 2 - 5 * x - 4
+     -- = x * (x - 5) - 4
+     sorry
 
+/-
 theorem mathd_numbertheory_257
   (x : ℕ)
   (h₀ : 1 ≤ x ∧ x ≤ 100)
@@ -509,15 +523,15 @@ begin
   have h₃ := h₁ (-1),
   linarith,
 end
+-/
 
 theorem mathd_algebra_455
-  (x : ℝ)
-  (h₀ : 2 * (2 * (2 * (2 * x))) = 48) :
-  x = 3 :=
-begin
-  linarith,
-end
--/
+    (x : ℝ)
+    (h₀ : 2 * (2 * (2 * (2 * x))) = 48) :
+    x = 3 := by sorry --linarith
+--  have h1 : (48:ℝ) = 2 * (2 * (2 * (2 * 3))) := by norm_num
+--  rw [h1] at h₀
+--  sorry
 
 theorem mathd_numbertheory_45 :
     (Nat.gcd 6432 132) + 11 = 23 := by
@@ -548,14 +562,14 @@ theorem mathd_algebra_245
 begin
   field_simp [(show x ≠ 0, by simpa using h₀), mul_comm x]; ring,
 end
+-/
 
 theorem algebra_apb4leq8ta4pb4
-  (a b : ℝ)
-  (h₀ : 0 < a ∧ 0 < b) :
-  (a + b)^4 ≤ 8 * (a^4 + b^4) :=
-begin
+    (a b : ℝ)
+    (h₀ : 0 < a ∧ 0 < b) :
+    (a + b)^4 ≤ 8 * (a^4 + b^4) := by
+  obtain ⟨ha, hb⟩ := h₀
   sorry
-end
 
 theorem mathd_algebra_28
   (c : ℝ)
@@ -856,7 +870,19 @@ theorem amc12a_2017_p7
     (h₁ : ∀ n, 1 < n ∧ Even n → f n = f (n - 1) + 1)
     (h₂ : ∀ n, 1 < n ∧ Odd n → f n = f (n - 2) + 2) :
     f 2017 = 2018 := by
-  sorry
+  -- f 1 = 2
+  -- f 2 = 3
+  -- f 3 = 4
+  -- f n = n + 1
+  have h3 : ∀ n, 0 < n → f n = n + 1 := by
+    intros n hn
+    cases n with | zero => norm_num at hn | succ n =>
+    induction n using Nat.strong_induction_on with | h n ih =>
+    --have := Nat.Even_or_Odd (Nat.succ n) -- needs Data.Nat.Parity to be ported.
+    sorry
+
+  have := h3 2017 (by norm_num)
+  norm_cast at this
 
 theorem mathd_numbertheory_42
     (S : Set ℕ)
@@ -915,6 +941,7 @@ theorem amc12b_2004_p3
     (x y : ℕ)
     (h₀ : 2^x * 3^y = 1296) :
     x + y = 8 := by
+  -- 1296 = 2^4 * 3^4
   sorry
 
 /-
@@ -939,21 +966,20 @@ theorem amc12a_2011_p18
     x^2 - 6 * x + y^2 ≤ 9 := by
   sorry
 
-/-
+
 theorem mathd_algebra_15
-  (s : ℕ → ℕ → ℕ)
-  (h₀ : ∀ a b, 0 < a ∧ 0 < b → s a b = a^(b:ℕ) + b^(a:ℕ)) :
-  s 2 6 = 100 :=
-begin
-  rw h₀,
-  refl,
-  norm_num,
-end
+    (s : ℕ → ℕ → ℕ)
+    (h₀ : ∀ a b, 0 < a ∧ 0 < b → s a b = a^(b:ℕ) + b^(a:ℕ)) :
+    s 2 6 = 100 := by
+  rw [h₀ 2 6 ⟨by norm_num, by norm_num⟩]
+  · rfl
+
 
 theorem mathd_numbertheory_211 :
-  finset.card (finset.filter (λ n, 6 ∣ (4 * ↑n - (2 : ℤ))) (finset.range 60)) = 20 :=
-begin
-  -- apply le_antisymm,
+    Finset.card (Finset.filter (λ n ↦ 6 ∣ (4 * ↑n - (2 : ℤ))) (Finset.range 60)) = 20 :=
+by apply le_antisymm
+   sorry
+   sorry
   -- -- haveI := classical.prop_decidable,
   -- swap,
   -- dec_trivial!,
@@ -963,15 +989,11 @@ begin
   -- { norm_num, },
   -- -- haveI := classical.dec,
   -- simp,
-  sorry
-end
 
 theorem mathd_numbertheory_640 :
-  (91145 + 91146 + 91147 + 91148) % 4 = 2 :=
-begin
-  norm_num,
-end
+  (91145 + 91146 + 91147 + 91148) % 4 = 2 := by norm_num
 
+/-
 theorem amc12b_2003_p6
   (a r : ℝ)
   (u : ℕ → ℝ)
@@ -998,19 +1020,21 @@ theorem aime_1991_p1
 begin
   sorry
 end
+-/
 
 theorem mathd_algebra_43
-  (a b : ℝ)
-  (f : ℝ → ℝ)
-  (h₀ : ∀ x, f x = a * x + b)
-  (h₁ : f 7 = 4)
-  (h₂ : f 6 = 3) :
-  f 3 = 0 :=
-begin
-  rw h₀ at *,
-  linarith,
-end
+    (a b : ℝ)
+    (f : ℝ → ℝ)
+    (h₀ : ∀ x, f x = a * x + b)
+    (h₁ : f 7 = 4)
+    (h₂ : f 6 = 3) :
+    f 3 = 0 := by
+  rw [h₀] at *
+  -- linarith
+  sorry
 
+
+/-
 theorem imo_1988_p6
   (a b : ℕ)
   (h₀ : 0 < a ∧ 0 < b)
@@ -1035,17 +1059,17 @@ theorem aime_1996_p5
 begin
   sorry
 end
+-/
 
 theorem mathd_algebra_55
-  (q p : ℝ)
-  (h₀ : q = 2 - 4 + 6 - 8 + 10 - 12 + 14)
-  (h₁ : p = 3 - 6 + 9 - 12 + 15 - 18 + 21) :
-  q / p = 2 / 3 :=
-begin
-  rw [h₀, h₁],
-  ring,
-end
+    (q p : ℝ)
+    (h₀ : q = 2 - 4 + 6 - 8 + 10 - 12 + 14)
+    (h₁ : p = 3 - 6 + 9 - 12 + 15 - 18 + 21) :
+    q / p = 2 / 3 := by
+  rw [h₀, h₁]
+  norm_num
 
+/-
 theorem algebra_sqineq_2at2pclta2c2p41pc
   (a c : ℝ) :
   2 * a * (2 + c) ≤ a^2 + c^2 + 4 * (1 + c) :=
@@ -1054,13 +1078,13 @@ begin
   suffices : 0 ≤ (c - a + 2)^2, nlinarith,
   exact pow_two_nonneg (c - a + 2),
 end
+-/
 
 theorem mathd_numbertheory_43 :
-  is_greatest {n : ℕ | 15^n ∣ 942! } 233 :=
-begin
+    IsGreatest {n : ℕ | 15^n ∣ Nat.factorial 942 } 233 := by
   sorry
-end
 
+/-
 theorem mathd_algebra_214
   (a : ℝ)
   (f : ℝ → ℝ)
@@ -1084,42 +1108,38 @@ theorem mathd_algebra_96
 begin
   nlinarith [h₁, h₂, h₃],
 end
+-/
 
 theorem amc12_2001_p2
-  (a b n : ℕ)
-  (h₀ : 1 ≤ a ∧ a ≤ 9)
-  (h₁ : 0 ≤ b ∧ b ≤ 9)
-  (h₂ : n = 10 * a + b)
-  (h₃ : n = a * b + a + b) :
-  b = 9 :=
-begin
-  rw h₂ at h₃,
-  simp at h₃,
-  have h₄ : 10 * a = (b + 1) * a, linarith,
-  simp at h₄,
-  cases h₄ with h₅ h₆,
-  linarith,
-  exfalso,
-  simp [*, le_refl] at *,
-end
+    (a b n : ℕ)
+    (h₀ : 1 ≤ a ∧ a ≤ 9)
+    (h₁ : 0 ≤ b ∧ b ≤ 9)
+    (h₂ : n = 10 * a + b)
+    (h₃ : n = a * b + a + b) :
+    b = 9 := by
+  rw [h₂] at h₃
+  simp at h₃
+  have h₄ : 10 * a = (b + 1) * a := by linarith
+  simp at h₄
+  cases h₄ with
+  | inl h₅ => exact h₅.symm
+  | inr h₆ => exfalso
+              simp [*, le_refl] at *
+
 
 theorem mathd_algebra_185
-  (s: finset ℤ)
-  (f : ℤ → ℤ)
-  (h₀ : ∀ x, f x = abs (x + 4))
-  (h₁ : ∀ x, x ∈ s ↔ f x < 9) :
-  s.card = 17 :=
-begin
-  sorry
-end
+    (s: Finset ℤ)
+    (f : ℤ → ℤ)
+    (h₀ : ∀ x, f x = abs (x + 4))
+    (h₁ : ∀ x, x ∈ s ↔ f x < 9) :
+  s.card = 17 := by sorry
+
 
 theorem algebra_binomnegdiscrineq_10alt28asqp1
-  (a : ℝ) :
-  10 * a ≤ 28 * a^2 + 1 :=
-begin
-  sorry
-end
+    (a : ℝ) :
+    10 * a ≤ 28 * a^2 + 1 := by sorry
 
+/-
 theorem mathd_numbertheory_284
   (a b : ℕ)
   (h₀ : 1 ≤ a ∧ a ≤ 9 ∧ b ≤ 9)
@@ -1128,13 +1148,12 @@ theorem mathd_numbertheory_284
 begin
   sorry
 end
+-/
 
 theorem amc12a_2009_p2 :
-  1 + (1 / (1 + (1 / (1 + 1)))) = (5 : ℚ) / 3 :=
-begin
-  norm_num,
-end
+  1 + (1 / (1 + (1 / (1 + 1)))) = (5 : ℚ) / 3 := by norm_num
 
+/-
 theorem mathd_numbertheory_709
   (n : ℕ)
   (h₀ : 0 < n)
@@ -1227,14 +1246,17 @@ theorem amc12b_2020_p5
 begin
   sorry
 end
+-/
+
+--theorem foo (a b : ℤ) : (a * b) % 3 = ((a % 3) * (b % 3)) % 3 := by library_search
 
 theorem numbertheory_sqmod3in01d
-  (a : ℤ) :
-  (a^2) % 3 = 0 ∨ (a^2) % 3 = 1 :=
-begin
-  sorry
-end
+    (a : ℤ) :
+    (a^2) % 3 = 0 ∨ (a^2) % 3 = 1 := by
+  rw[pow_two a]
+  mod_cases a % 3 <;> rw[Int.mul_emod, H] <;> norm_num
 
+/-
 theorem mathd_algebra_131
   (a b : ℝ)
   (f : ℝ → ℝ)
@@ -1306,14 +1328,13 @@ theorem aime_1987_p8
 begin
   sorry
 end
+-/
 
 theorem mathd_numbertheory_136
   (n : ℕ)
-  (h₀ : 123 * n + 17 = 39500) : n = 321 :=
-begin
-  linarith,
-end
+  (h₀ : 123 * n + 17 = 39500) : n = 321 := by linarith
 
+/-
 theorem amc12_2000_p11
   (a b : ℝ)
   (h₀ : a ≠ 0 ∧ b ≠ 0)
