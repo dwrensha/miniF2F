@@ -571,6 +571,7 @@ theorem algebra_apb4leq8ta4pb4
   obtain ⟨ha, hb⟩ := h₀
   sorry
 
+/-
 theorem mathd_algebra_28
   (c : ℝ)
   (f : ℝ → ℝ)
@@ -1445,7 +1446,7 @@ theorem mathd_numbertheory_458
   rw[h₀] at h1
   rw[← h1]
   rw[Nat.add_mod]
-  have h2 : 8 * (n / 8) = 4 * (2 * (n / 8)) := by norm_num
+  have h2 : 8 * (n / 8) = 4 * (2 * (n / 8)) := by ring
   rw[h2, Nat.mul_mod_right]
   norm_num
 
